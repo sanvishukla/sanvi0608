@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Portfolio</title>
+  <link rel="icon" href="images/icons8-cute-100.png" type="image/x-icon">
+  <link rel="shortcut icon" href="images/icons8-cute-100.png" type="image/x-icon">
+  <style>
+    .loader-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+      z-index: 9999; /* Ensure it appears above other content */
+    }
+
+    .container {
+      --uib-size: 150px;
+      --uib-color: rgb(181, 5, 190);
+      --uib-speed: 2s;
+      position: relative;
+      height: var(--uib-size);
+      width: var(--uib-size);
+    }
+
+    .container::before,
+    .container::after,
+    .dot::before,
+    .dot::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      border-radius: 50%;
+      background-color: var(--uib-color);
+      animation: pulse var(--uib-speed) linear infinite;
+      transform: scale(0);
+      opacity: 0;
+      transition: background-color 0.3s ease;
+    }
+
+    .container::after {
+      animation-delay: calc(var(--uib-speed) / -4);
+    }
+
+    .dot::before {
+      animation-delay: calc(var(--uib-speed) * -0.5);
+    }
+
+    .dot::after {
+      animation-delay: calc(var(--uib-speed) * -0.75);
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
+  </style>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 2%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      height: 80px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+    }
+
+    .navbar img {
+      height: 60px;
+      width: 80px;
+      border-radius: 20px;
+      margin-right: 10px;
+    }
+
+    .navbar .left-menu {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar .menu {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #333;
+      transition: color 0.3s;
+      font-size: 1.2em;
+      margin: 0 15px;
+    }
+
+    .navbar .left-menu a {
+      font-weight: bold;
+      margin-left: 5px;
+    }
+
+    .navbar .menu a {
+      font-weight: normal;
+    }
+
+    .navbar a:hover {
+      color: #000;
+    }
+
+    .contact-button {
+      height: 60px;
+      width: 90px;
+      border-radius: 20px;
+      background-color: #d70081;
+      color: white !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      font-size: 1.2em;
+      margin-left: 15px;
+    }
+
+    .contact-button:hover {
+      background-color: #e761b1;
+      color: white !important;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .video-container video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+    }
+
+    .video-overlay {
+      position: absolute;
+      top: 55%;
+      left: 5%;
+      transform: translateY(-50%);
+      color: #ffc091;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .video-overlay h1 {
+      font-size: 4em;
+      margin: 0;
+      font-weight: bold;
+      font-family: 'Arial Black', sans-serif;
+    }
+
+    .video-overlay p {
+      font-size: 1.8em;
+      margin: 0;
+      color: white;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+
+    .content {
+      padding-top: 0;
+      text-align: center;
+    }
+
+    .section {
+      padding: 0;
+      margin: 0;
+    }
+
+    .custom-marquee {
+      font-size: 5em;
+      font-weight: bold;
+      color: #e70081;
+      white-space: nowrap;
+      overflow: hidden;
+      position: relative;
+      box-sizing: border-box;
+      border: 3px solid #e70081;
+      border-radius: 0px;
+      padding: 10px 20px;
+      background-color: #fff;
+      z-index: 1;
+      width: 100%;
+    }
+
+    .custom-marquee span {
+      display: inline-block;
+      animation: marquee 600s linear infinite;
+      animation-delay: -300s;
+    }
+
+    @keyframes marquee {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    .section#about {
+      background-color: #fcfac2;
+      padding: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 15px;
+    }
+
+
+    .about-content {
+      max-width: 1200px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+      max-height: 530px;
+  
+      padding-right: 0px;
+    }
+
+    .about-text {
+  flex: 1;
+  padding: 0 20px;
+  text-align: left;
+}
+
+.about-text h2 {
+  font-size: 5em; /* Adjusted font size for heading */
+  font-weight: bold;
+  font-family: 'Arial Black', sans-serif;
+  margin-bottom: 10px;
+}
+
+.about-text p {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-size: 0.9em; /* Smaller font size */
+  line-height: 1.6; /* Adjusted line height */
+  text-align: left;
+  margin-bottom: 10px; /* Reduced space between paragraphs */
+}
+
+.about-image {
+  flex: 1;
+  text-align: center;
+  margin-top: 0; /* Adjusted to remove top margin */
+}
+
+.about-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  /* Removed box-shadow to eliminate shadow effect */
+}
+
+.section h1 {
+  font-size: 5em; /* Adjusted font size for section headings */
+}
+
+.section p {
+  font-size: 1.4em; /* Adjusted font size for section paragraphs */
+}
+
+.about-text h2 {
+  font-size: 1.8em; /* Adjusted font size for about section heading */
+}
+
+.about-text p {
+  font-size: 1em; /* Adjusted font size for about section paragraphs */
+}
+
+    /* Smooth scrolling script */
+    .nav-link[href="#top"] {
+      cursor: pointer;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: #333;
+      transition: color 0.3s;
+      font-size: 1.2em;
+      margin: 0 15px;
+    }
+
+    .nav-link:hover {
+      color: #000;
+    }
+
+    .contact-button {
+      height: 60px;
+      width: 90px;
+      border-radius: 20px;
+      background-color: #d70081;
+      color: white !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      font-size: 1.2em;
+      margin-left: 15px;
+    }
+
+    .contact-button:hover {
+      background-color: #e761b1;
+      color: white !important;
+    }
+
+    .custom-marquee {
+      font-size: 5em;
+      font-weight: bold;
+      color: #e70081;
+      white-space: nowrap;
+      overflow: hidden;
+      position: relative;
+      box-sizing: border-box;
+      border: 3px solid #e70081;
+      border-radius: 0px;
+      padding: 10px 20px;
+      background-color: #fff;
+      z-index: 1;
+      width: 100%;
+    }
+
+    .custom-marquee span {
+      display: inline-block;
+      animation: marquee 600s linear infinite;
+      animation-delay: -300s;
+    }
+
+    @keyframes marquee {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    /* Media Queries */
+    @media (max-width: 768px) {
+      .navbar {
+        height: 60px;
+      }
+
+      .navbar img {
+        height: 50px;
+        width: 60px;
+      }
+
+      .navbar .menu {
+        display: none;
+      }
+
+      .contact-button {
+        height: 50px;
+        width: 80px;
+        font-size: 1em;
+      }
+
+      .custom-marquee {
+        font-size: 3.5em;
+      }
+
+      .video-overlay h1 {
+        font-size: 3em;
+      }
+
+      .video-overlay p {
+        font-size: 1.5em;
+      }.about-content {
+          flex-direction: column;
+        }
+
+        .about-text, .about-image {
+          width: 100%;
+        }
+
+        .about-image {
+          text-align: center;
+          margin-top: 20px;
+        }
+
+        .about-text p {
+          font-size: 0.9em; /* Smaller font size */
+          line-height: 1.4; /* Reduced line height */
+          text-align: left; /* Left align text */
+          margin-bottom: 10px; /* Reduced space between paragraphs */
+        }
+      }
+      .resume-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #d70081;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  margin-top: 20px; /* Adjust as needed */
+  font-size: 1.2em;
+  transition: background-color 0.3s;
+}
+
+.resume-button:hover {
+  background-color: #e761b1;
+}
+.education-section {
+  margin-top: 0px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 20px;
+  border: 3px solid #e70081;
+  border-radius: 0px;
+  background-color: #fff;
+}
+
+.section-title {
+  font-size: 1.5em; /* Adjusted font size */
+  font-weight: bold;
+  color: #e70081;
+  text-align: center;
+  width: 100%;
+}
+
+.section-content {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.section-item {
+  width: calc(50% - 10px); /* Adjusted width for each section */
+  text-align: left;
+  padding: 10px;
+  
+}
+
+
+.divider {
+  width: 4px; /* Increase the width of the divider */
+  height: 100px; /* Ensure the height covers the content */
+  background-color: #e70081; /* Ensure the color is bright and noticeable */
+  margin: 0 20px; /* Adjust spacing between sections */
+  border-radius: 2px; /* Add some rounding to make it look nicer */
+  opacity: 1; /* Ensure the divider is fully opaque */
+}
+.school-details {
+  width: calc(50% - 10px); /* Adjusted width for school details */
+  text-align: left;
+  padding: 10px;
+}
+
+.school-name,
+.college-name,
+.section-item{
+  font-size: 1.5em; /* Adjusted font size */
+  font-weight: bold;
+  color: #e70081; /* Same pink color as the marquee */
+  margin-bottom: 10px;
+}
+.section-item {
+  flex: 1; /* 1/6 of the total width */
+}
+.college-details,
+.school-details {
+  flex: 2; /* 1/3 of the total width each */
+}
+.school-info,
+.college-info {
+  font-size: 1.2em; /* Adjusted font size */
+  line-height: 1.6;
+  color: #000000; /* Same pink color as the marquee */
+  
+}
+
+.education .school {
+  font-family: 'Lobster', cursive;
+}
+
+.education .degree,
+.education .year {
+  font-family: 'Arial', sans-serif;
+}
+.videocontainer1 {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.videocontainer1 video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+}
+.project-details {
+  display: flex;
+  justify-content: center; /* Center items horizontally */
+  align-items: center;
+  gap: 50px; /* Space between items */
+  padding: 20px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.project-item {
+  width: 250px; /* Fixed width for each project item */
+  text-align: center;
+  background: rgba(255, 255, 255, 0.8); /* Translucent background */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+  padding: 20px;
+  box-sizing: border-box;
+  height: 300px;
+}
+
+.project-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px; /* Round the image corners */
+}
+
+.project-title {
+  margin-top: 10px;
+}
+
+.project-title h2 {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+}
+
+.videooverlay1 {
+  position: absolute;
+  top: 17%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffc091;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  text-align: center; /* Center align text */
+}
+
+
+.videooverlay1 h1 {
+  font-size: 4em;
+  margin: 0;
+  font-weight: bold;
+  font-family: 'Arial Black', sans-serif;
+}
+.project-title {
+  display: flex;
+  align-items: center; /* Align items vertically */
+}
+
+.link-indicator {
+  margin-left: 5px; /* Adjust spacing between text and indicator */
+  font-size: 1em; /* Adjust size of the link indicator */
+}
+
+/* Styles for the skills section */
+.skills-section {
+  margin-top: 0px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 20px;
+  padding-top:3px;
+  border: 3px solid #e70081;
+  border-radius: 0px;
+  background-color: #fff;
+}
+
+/* Sidebar (left section for title and dropdown) */
+.skills-sidebar {
+  flex: 1; /* Take up 1/3rd of the width */
+}
+
+.skills-sidebar h2 {
+  margin-bottom: 10px;
+}
+
+/* Dropdown list styles */
+.skills-dropdown select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+
+.skills-content {
+  flex: 5; /* Take up 5/6th of the width */
+}
+
+.skill-category {
+  display: none; /* Hide all skill categories initially */
+}
+
+.skill-category.active {
+  display: block; /* Display active skill category */
+}
+
+
+.sk1 {
+  font-size: 1.5em; /* Adjusted font size */
+  font-weight: bold;
+  color: #e70081;
+  text-align: center;
+  width: 100%;
+}
+.skill-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Adjust the gap between skills */
+}
+
+.skill-list li {
+  background-color: #f0f0f0;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #555;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .skills-section {
+    flex-direction: column;
+  }
+
+  .skills-sidebar,
+  .skills-content {
+    flex: 1;
+    max-width: 100%;
+  }
+
+  .skills-sidebar {
+    margin-bottom: 20px;
+  }
+}
+.section#contact {
+  background-color: #fcfac2;
+  padding: 40px 20px;
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.section#contact .contact-content {
+  max-width: 800px;
+  width: 100%;
+  padding: 20px;
+  margin-top: 50px;
+  box-sizing: border-box;
+}
+
+.section#contact .contact-content h1 {
+  font-size: 3em;
+  font-weight: bold;
+  font-family: 'Arial Black', sans-serif;
+  margin-bottom: 20px;
+}
+
+.section#contact form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section#contact .form-group {
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.section#contact .form-group input,
+.section#contact .form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-sizing: border-box;
+  font-size: 1em;
+}
+
+.section#contact .form-group input::placeholder,
+.section#contact .form-group textarea::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.section#contact .form-group input:focus,
+.section#contact .form-group textarea:focus {
+  outline: none;
+  border-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.section#contact .submit-button {
+  width: 100px;
+  padding: 10px;
+  background-color: #d70081;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  align-self: center;
+}
+
+.section#contact .submit-button:hover {
+  background-color: #e761b1;
+}
+
+.social-links {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-links a img {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s;
+}
+
+.social-links a img:hover {
+  transform: scale(1.1);
+}
+
+.contact-info {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact-info .phone-info,
+.contact-info .email-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact-info .contact-icon {
+  width: 24px;
+  height: 24px;
+}
+
+
+    </style>
+
+  </head>
+  
+  <body>
+    <div class="loader-container" id="loader">
+        <div class="container">
+          <div class="dot"></div>
+        </div>
+      </div>
+    <div class="navbar">
+      <div class="left-menu">
+        <a href="#"><img src="images/g6002d099b108bad8099f21f52c10-h_lxgia0of.jpeg" alt="Profile Image"></a>
+        <a href="#top" class="nav-link">Sanvi Shukla</a>
+      </div>
+      <div class="menu">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <!-- <a href="#experience" class="nav-link">Experience</a> -->
+      </div>
+      <a href="#contact" class="contact-button">Contact</a>
+    </div>
+
+    <div class="video-container">
+      <video autoplay muted loop>
+        <source src="images/Untitled.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="video-overlay">
+        <h1>Sanvi Shukla</h1>
+        <p>Breaking Codes and Stereotypes with Style and Sass!</p>
+      </div>
+    </div>
+
+    <!-- Updated Marquee section -->
+    <div class="custom-marquee">
+      <span>Code Couture * Innovate Chic * Tech Glam * Sassy Skills * Education Elegance * Connect with Class * Code Couture * Innovate Chic * Tech Glam * Sassy Skills * Education Elegance * Connect with Class * Code Couture * Innovate Chic * Tech Glam * Sassy Skills * Education Elegance * Connect with Class * Code Couture * Innovate Chic * Tech Glam * Sassy Skills * Education Elegance * Connect with Class * Code Couture * Innovate Chic * Tech Glam * Sassy Skills * Education Elegance * Connect with Class * Code Couture * Innovate Chic * Tech Glam * Sassy Skills * Education Elegance * Connect with Class * Code Couture * Innovate Chic * Tech Glam * Sassy Skills * Education Elegance * Connect with Class * Code Couture * Innovate Chic * Tech Glam * Sassy Skills * Education Elegance * Connect with Class *</span>
+    </div>
+    
+    <div class="content">
+      <div class="section" id="about">
+        <div class="about-content">
+          <div class="about-text">
+            <h2>About Me</h2>
+            <p>Hey there, I'm Sanvi, a coding enthusiast with a knack for all things tech! Whether I'm debugging in my sleep or creating elegant algorithms, I thrive on everything coding-related.</p>
+            <p>When I'm not immersed in lines of code, you can find me exploring the latest tech trends, enjoying coffee, or brainstorming my next big project.</p>
+            <p>Let's dive into the digital world together and make some magic happen!</p>
+            <a href="path_to_your_resume.pdf" class="resume-button"  target="_blank">Download Resume</a>
+          </div>
+          <div class="about-image">
+            <img src="images/ga07f7cd1615852a4dac95c02836f-h_lxgik4t6.png" alt="Random Image">
+          </div>
+        </div>
+      </div>
+    </div>
+      <!-- Education, College Details, and School Details section -->
+      <div class="education-section">
+        <div class="section-item">
+          <h2>Education</h2>
+        </div>
+        <div class="divider"></div>
+        <div class="college-details">
+        
+          <div class="details">
+            <p class="college-name">Rajiv Gandhi Institute of Petroleum Technology, Amethi</p>
+            <p class="college-info"> B.Tech in Computer Science and Engineering <br>(8.65 CPI till 4th Semester)</p>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="school-details">
+     
+          <div class="details">
+            <p class="school-name">Vishwa Bharati Public School, Noida</p>
+            <p class="school-info">Class 12: 95.6%</p>
+            <p class="school-info">Class 10: 97.6%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="content">
+        <div class="section" id="projects">
+          <div class="videocontainer1">
+            <video autoplay muted loop>
+              <source src="images/3130284-uhd_3840_2160_30fps.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <div class="videooverlay1">
+              <h1>Projects</h1>
+            </div>
+            <div class="project-details">
+                <div class="project-item">
+                  <div class="project-image">
+                    <img src="images/istockphoto-1337105602-1024x1024.jpg" alt="Project 1 Image">
+                  </div>
+                  <div class="project-title">
+                    <a href="https://github.com/sanvishukla/SIF_space_hackathon_2023">
+                    <h2> LULC Level 2 Classification using RESNet <span class="link-indicator">&#x1F517;</h2>
+                    </a>
+                  </div>
+                </div>
+          
+                <div class="project-item">
+                  <div class="project-image">
+                    <img src="images/ig-page.png" alt="Project 2 Image">
+                  </div>
+                  <div class="project-title">
+                    <a href="https://github.com/sanvishukla/Instagram-follow-checker">
+                    <h2>Instagram follow checker <span class="link-indicator">&#x1F517;</h2>
+                        </a>
+                  </div>
+                </div>
+          
+                <div class="project-item">
+                  <div class="project-image">
+                    <img src="images/portfolio.png" alt="Project 3 Image">
+                  </div>
+                  <div class="project-title">
+                    <a href="https://github.com/sanvishukla/sanvi0608">
+                    <h2>Personal Portfolio <span class="link-indicator">&#x1F517;</h2>
+                    </a>
+                  </div>
+                </div>
+          
+                <div class="project-item">
+                  <div class="project-image">
+            
+                    <img src="images/studentportal.png" alt="Project 4 Image">
+                  </div>
+                  <div class="project-title">
+                    <a href="https://github.com/sanvishukla/RGIPT-student-portal">
+                    <h2>Online Student Portal <span class="link-indicator">&#x1F517;</h2>
+                </a>
+                  </div>
+                </div>
+              </div>
+          </div>
+      
+          
+        </div>
+      </div>
+      
+<!-- Skills section -->
+<div class="section" id="skills">
+    <div class="skills-section">
+      <!-- Skills title and dropdown on the left -->
+      <div class="skills-sidebar">
+        <h2 class="sk1">Skills</h2>
+        <div class="skills-dropdown">
+          <select name="skill-category" id="skill-category">
+            <option value="" disabled selected>Select skills</option>
+            <option value="languages">Languages</option>
+            <option value="frameworks">Frameworks</option>
+            <option value="others">Others</option>
+          </select>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <!-- Skills content on the right -->
+      <div class="skills-content">
+        <!-- Placeholder for skills content -->
+        <div id="languages" class="skill-category">
+          <ul class="skill-list">
+            <li>C++</li>
+            <li>C</li>
+            <li>C#</li>
+            <li>Python</li>
+            <li>Java</li>
+            <li>HTML/CSS</li>
+            <li>Javascript</li>
+            <!-- Add more skills as needed -->
+          </ul>
+        </div>
+        <div id="frameworks" class="skill-category">
+          <ul class="skill-list">
+            <li>Flask</li>
+            <li>Node.js</li>
+            <li>Express.js</li>
+            <!-- Add more frameworks as needed -->
+          </ul>
+        </div>
+        <div id="others" class="skill-category">
+          <ul class="skill-list">
+            <li>Git</li>
+            <li>Github</li>
+            <li>MySQL</li>
+            <li>Unity</li>
+            <!-- Add more skills in "Others" category as needed -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    <!-- <div class="content">
+      <div class="section" id="experience">
+        <h1>Experience</h1>
+        <p>Your experience content goes here...</p>
+      </div>
+      </div> -->
+      <div class="content">
+        <div class="section" id="contact">
+          <div class="contact-content">
+            <h1>Get in touch</h1>
+            <form id="contactForm" method="POST" action="https://formspree.io/f/xqkrrnpq">
+              <div class="form-group">
+                <input type="text" id="name" name="name" placeholder="Name" required>
+              </div>
+              <div class="form-group">
+                <input type="email" id="email" name="email" placeholder="Email" required>
+              </div>
+              <div class="form-group">
+                <textarea id="message" name="message" rows="4" placeholder="Message" required></textarea>
+              </div>
+              <button type="submit" class="submit-button">Send</button>
+            </form>
+            <div class="social-links">
+              <a href="https://www.instagram.com/_sanvishukla_" target="_blank">
+                <img src="images/icons8-instagram-48.png" alt="Instagram">
+              </a>
+              <a href="https://www.linkedin.com/in/sanvishukla/" target="_blank">
+                <img src="images/icons8-linkedin-48.png" alt="LinkedIn">
+              </a>
+              <a href="https://www.github.com/sanvishukla" target="_blank">
+                <img src="images/icons8-github-48.png" alt="GitHub">
+              </a>
+              <a href="https://t.me/sanvi0608" target="_blank">
+                <img src="images/icons8-telegram-48.png" alt="Telegram">
+              </a>
+            </div>
+            <div class="contact-info">
+                <div class="phone-info">
+                  <img src="images/icons8-call-50.png" alt="Phone" class="contact-icon">
+                  <span>+91-9871277790</span>
+                </div>
+                <div class="email-info">
+                  <img src="images/icons8-gmail-48.png" alt="Email" class="contact-icon">
+                  <span>sanvishukla@gmail.com</span>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      
+
+    <script>
+        // Smooth scrolling script
+        document.querySelector('.nav-link[href="#top"]').addEventListener('click', function(e) {
+          e.preventDefault();
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        });
+      
+        document.querySelectorAll('.nav-link:not([href="#top"])').forEach(anchor => {
+          anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+              const navbarHeight = document.querySelector('.navbar').offsetHeight;
+              window.scrollTo({
+                top: target.offsetTop - navbarHeight,
+                behavior: 'smooth'
+              });
+            }
+          });
+        });
+        document.querySelectorAll('.nav-link').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          let offset = target.offsetTop; // Get the target offset
+
+          // Adjust offset based on your requirements (subtracting the marquee height)
+          let marqueeHeight = document.querySelector('.custom-marquee').offsetHeight;
+
+          window.scrollTo({
+            top: offset,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    document.querySelector('.contact-button').addEventListener('click', function(e) {
+  e.preventDefault();
+  const target = document.querySelector(this.getAttribute('href'));
+  if (target) {
+    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+    window.scrollTo({
+      top: target.offsetTop - navbarHeight,
+      behavior: 'smooth'
+    });
+  }
+});
+document.getElementById('skill-category').addEventListener('change', function() {
+  // Hide all skill categories
+  document.querySelectorAll('.skill-category').forEach(function(category) {
+    category.classList.remove('active');
+  });
+
+  // Show selected skill category
+  var selectedCategory = this.value;
+  document.getElementById(selectedCategory).classList.add('active');
+});
+// Smooth scrolling effect for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const target = document.querySelector(this.getAttribute('href'));
+        target.scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+
+window.addEventListener("DOMContentLoaded", function() {
+    var form = document.getElementById("contactForm");
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+      var status = document.createElement("div");
+      form.appendChild(status);
+
+      var data = new FormData(form);
+      try {
+        let response = await fetch(form.action, {
+          method: form.method,
+          body: data,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          status.innerHTML = "Your message has been sent!";
+          form.reset();
+        } else {
+          let data = await response.json();
+          if (Object.hasOwn(data, 'errors')) {
+            status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+          } else {
+            status.innerHTML = "Oops! There was a problem submitting your form";
+          }
+        }
+      } catch (error) {
+        status.innerHTML = "Oops! There was a problem submitting your form";
+      }
+    });
+  });
+      </script>
+      
+      <script>
+        window.addEventListener('load', function() {
+          var loader = document.getElementById('loader');
+          loader.style.display = 'none';
+        });
+      </script>
+  </body>
+</html>
